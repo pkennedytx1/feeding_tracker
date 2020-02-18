@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon, Button } from 'semantic-ui-react'
 
 export default class NavMenu extends Component {
-  state = { activeItem: 'home' }
+  state = { activeItem: 'feeding log' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
     const { activeItem } = this.state
 
+    let userName
+    let photo
+    if(this.props.user) {
+      userName = this.props.user.displayName.split(' ')[0]
+      photo = this.props.user.photoURL
+    }
+
+    console.log(this.props.user)
     return (
       <div>
         <Menu pointing secondary>
@@ -21,17 +29,23 @@ export default class NavMenu extends Component {
                     name='feeding log'
                     active={activeItem === 'feeding log'}
                     onClick={this.handleItemClick}
-                />
+                >
+                  <Icon name='gulp' />Feeding Log
+                </Menu.Item>
                 <Menu.Item
                     name='new feeding'
                     active={activeItem === 'new feeding'}
                     onClick={this.handleItemClick}
-                />
+                >
+                  <Icon name='plus' />New Feeding
+                </Menu.Item>
                 <Menu.Item
-                    name='notes'
-                    active={activeItem === 'notes'}
+                    name='alldata'
+                    active={activeItem === 'alldata'}
                     onClick={this.handleItemClick}
-                />
+                >
+                  <Icon name='chart pie' />All Data
+                </Menu.Item>
             </>
         :
             <Menu.Item>
@@ -40,17 +54,28 @@ export default class NavMenu extends Component {
         }
           <Menu.Menu position='right'>
             {this.props.user ? 
+              <>
+                <Menu.Item
+                name='profile'
+                active={activeItem === 'profile'}
+                onClick={this.handleItemClick}
+                >
+                  <Icon name='user circle'/>{` ${userName}'s Profile`}
+                </Menu.Item>
                 <Menu.Item
                 name='logout'
                 active={activeItem === 'logout'}
                 onClick={this.props.signOut}
-                />
+                >
+                  <Icon name='sign-out'/>Sign-Out
+                </Menu.Item>
+              </>
             :
                 <Menu.Item
-                name='login'
-                active={activeItem === 'login'}
-                onClick={this.props.signIn}
-                />
+                  onClick={this.props.signIn}
+                >
+                  <Button><Icon name='google' />Log-In</Button>
+                </Menu.Item>
             }
           </Menu.Menu>
         </Menu>

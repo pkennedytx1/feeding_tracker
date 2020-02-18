@@ -64,7 +64,7 @@ class App extends React.Component {
                 <div className='landing-page'>
                   <h1>Welcome to Feeding Tracker</h1>
                   <Button onClick={signInWithGoogle} animated>
-                    <Button.Content visible>Sign In With Your Google Account</Button.Content>
+                    <Button.Content visible><Icon name='google'/> Sign In With Your Google Account</Button.Content>
                     <Button.Content hidden>
                       <Icon name='arrow right' />
                     </Button.Content>
