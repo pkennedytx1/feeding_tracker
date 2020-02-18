@@ -3,8 +3,8 @@ import NavMenu from './components/Menu'
 import { Button, Icon } from 'semantic-ui-react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Route, Redirect } from 'react-router'
-import FeedingLog from './components/FeedingLog'
 import './app.css'
+import FeedingLog from './components/FeedingLog'
 import firebase from 'firebase'
 import withFirebaseAuth from 'react-with-firebase-auth'
 
@@ -26,6 +26,12 @@ const firebaseAppAuth = firebaseApp.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider()
 }
+
+const ProtectedRoute 
+  = ({ isAllowed, ...props }) => 
+     isAllowed 
+     ? <Route {...props}/> 
+     : <Redirect to="/"/>
 
 
 class App extends React.Component {
@@ -50,24 +56,26 @@ class App extends React.Component {
     return (
       <div className="App">
         <Router>
-            <NavMenu user={user} signOut={signOut} />
+            <NavMenu user={user} signOut={signOut} signIn={signInWithGoogle} />
             <Route exact path = '/'>
-              {user === null ?
+              {user ?
+                <Redirect to='/feedinglog' />
+              :
                 <div className='landing-page'>
                   <h1>Welcome to Feeding Tracker</h1>
                   <Button onClick={signInWithGoogle} animated>
-                    <Button.Content visible>Sign In With You Google Account</Button.Content>
+                    <Button.Content visible>Sign In With Your Google Account</Button.Content>
                     <Button.Content hidden>
                       <Icon name='arrow right' />
                     </Button.Content>
                   </Button>
                 </div>
-              :
-                <Redirect to='/feedinglog' />
               }
             </Route>
-            <Route path='/feedinglog'
-              render={FeedingLog}
+            <ProtectedRoute
+              isAllowed={user}
+              path='/feedinglog'
+              component={FeedingLog}
             />
             <Route path='/newfeeding'>
               New Feeding
