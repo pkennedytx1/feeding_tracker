@@ -93,8 +93,9 @@ class App extends React.Component {
             <ProtectedRoute 
               isAllowed={user}
               path='/profile'
-              component={Profile}
-            />
+            >
+              <Profile user={user}/>
+            </ProtectedRoute>
         </Router>
       </div>
     );
