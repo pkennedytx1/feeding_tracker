@@ -11,10 +11,9 @@ export default class NavMenu extends Component {
     const { activeItem } = this.state
 
     let userName
-    let photo
+
     if(this.props.user) {
       userName = this.props.user.displayName.split(' ')[0]
-      photo = this.props.user.photoURL
     }
 
     console.log(this.props.user)
@@ -33,6 +32,8 @@ export default class NavMenu extends Component {
                   <Icon name='gulp' />Feeding Log
                 </Menu.Item>
                 <Menu.Item
+                    as={Link}
+                    to='/newfeeding'
                     name='new feeding'
                     active={activeItem === 'new feeding'}
                     onClick={this.handleItemClick}
@@ -40,6 +41,8 @@ export default class NavMenu extends Component {
                   <Icon name='plus' />New Feeding
                 </Menu.Item>
                 <Menu.Item
+                    as={Link}
+                    to='/alldata'
                     name='alldata'
                     active={activeItem === 'alldata'}
                     onClick={this.handleItemClick}
@@ -56,6 +59,8 @@ export default class NavMenu extends Component {
             {this.props.user ? 
               <>
                 <Menu.Item
+                as={Link}
+                to='/profile'
                 name='profile'
                 active={activeItem === 'profile'}
                 onClick={this.handleItemClick}

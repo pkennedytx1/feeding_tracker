@@ -5,6 +5,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Route, Redirect } from 'react-router'
 import './app.css'
 import FeedingLog from './components/FeedingLog'
+import NewFeeding from './components/NewFeeding'
+import Profile from './components/Profile'
+import AllData from './components/AllData'
 import firebase from 'firebase'
 import withFirebaseAuth from 'react-with-firebase-auth'
 
@@ -77,12 +80,21 @@ class App extends React.Component {
               path='/feedinglog'
               component={FeedingLog}
             />
-            <Route path='/newfeeding'>
-              New Feeding
-            </Route>
-            <Route path='/notes'>
-              Notes
-            </Route>
+            <ProtectedRoute
+              isAllowed={user}
+              path='/newfeeding'
+              component={NewFeeding}
+            />
+            <ProtectedRoute 
+              isAllowed={user}
+              path='/alldata'
+              component={AllData}
+            />
+            <ProtectedRoute 
+              isAllowed={user}
+              path='/profile'
+              component={Profile}
+            />
         </Router>
       </div>
     );
