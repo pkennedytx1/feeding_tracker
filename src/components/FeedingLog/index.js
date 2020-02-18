@@ -2,6 +2,8 @@ import React from 'react'
 
 export default function FeedingLog() {
     return(
-        <h1>Feeding Log</h1>
+        <div>
+            <h1 className='page-header-title'>Feeding Log</h1>
+        </div>
     )
 }

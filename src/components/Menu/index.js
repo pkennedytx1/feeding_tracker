@@ -49,7 +49,7 @@ export default class NavMenu extends Component {
                 <Menu.Item
                 name='login'
                 active={activeItem === 'login'}
-                onClick={this.handleItemClick}
+                onClick={this.props.signIn}
                 />
             }
           </Menu.Menu>
