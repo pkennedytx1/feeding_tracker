@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import { Form, Button } from 'semantic-ui-react'
 import BreastMilk from '../forms/BreastMilk'
 
+function sendData(data) {
+    console.log(data)
+}
+
 function formRender(selection) {
     switch(selection) {
         case 'Breast Feeding':
-            return <BreastMilk />
+            return <BreastMilk sendData={sendData} />
         case 'Pumped Breast Milk':
             return console.log('pumped')
         case 'Formula':
