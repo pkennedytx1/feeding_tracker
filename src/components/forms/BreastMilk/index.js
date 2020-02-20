@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { Form, Button, Icon } from 'semantic-ui-react'
 
-let formData = {}
-
-function dataObject(e) {
-    let dataName = e.target.name
-    formData[dataName] = e.target.value
-}
-
 export default function BreastMilk(props) {
-    const [data, setData] = useState(formData)
+    const [data, setData] = useState(null)
+    let formData = {}
+    
+    function dataObject(e) {
+        let dataName = e.target.name
+        formData[dataName] = e.target.value
+        setData(formData)
+    }
 
     return(
         <div>
