@@ -3,7 +3,7 @@ import { Form, Button, Icon, Checkbox } from 'semantic-ui-react'
 
 export default function BreastMilk(props) {
     const data = {}
-    const error = {}
+    const [formError, setError] = useState({})
 
     function dataObject(e) {
         if (e.target) {
@@ -13,8 +13,12 @@ export default function BreastMilk(props) {
         data.breast = e
     }
 
-    function handleErrors(e) {
-        
+    function handleError(data) {
+        if(data.total === undefined) {
+            setError({
+                total: 'Field Cannot be Blank'
+            })
+        }
     }
 
     const options = [
@@ -22,9 +26,10 @@ export default function BreastMilk(props) {
         { key: 'r', text: 'Right', value: 'right' },
         { key: 'b', text: 'Both', value: 'both' },
       ]
-
+      console.log(formError)
     return(
         <div>
+            
             <Form.Group widths='equal'>
                 <Form.Input 
                     onChange={(e) => dataObject(e)} 
@@ -35,6 +40,7 @@ export default function BreastMilk(props) {
                     onChange={(e) => dataObject(e)}
                     type='number' 
                     name='total'
+                    error={formError.total}
                     label='Time Spent Feeding - Minutes' />
                 <Form.Input 
                     onChange={(e) => dataObject(e)}
@@ -60,7 +66,8 @@ export default function BreastMilk(props) {
             </Form.Group>
             <Button 
                 onClick={async () => {
-                    props.sendData(data)
+                    handleError(data)
+                    // props.sendData(data)
                 }} 
                 floated='right' 
                 color='teal' 
